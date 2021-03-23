@@ -34,8 +34,8 @@ def main(args: Array[String]) {
   
 /* Filter the message not null data and replace the whitespace with ~ */
   val filter_data=stream.where("message is not null")
-        		  .withColumn("message_split",regexp_replace(col("message"),"\\\\s+","~"))
-        		  .select(col("message_split"))
+        		.withColumn("message_split",regexp_replace(col("message"),"\\\\s+","~"))
+        		.select(col("message_split"))
   
 /* Fetch individual columns as per the output.txt */     			
   val column_split=filtered_data
@@ -57,8 +57,8 @@ def main(args: Array[String]) {
    
 /* Write the data by passing target directory as argument and by using writestream*/                
     val output = processed_data
-                       .writeStream
-                       .format("json")
+                      .writeStream
+                      .format("json")
                       .option("path",args(1))
                       .option("checkpointLocation", "/user/checkpoint")
                       .outputMode("append")
